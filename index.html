@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversor de Links Showare</title>
+    <title>Gerador de Links de Canal de Venda - Showare</title>
 
     <style>
         * {
@@ -17,15 +17,16 @@
             font-family: Arial, Helvetica, sans-serif;
             background: #f4f6f9;
             padding: 30px;
+            color: #333;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: auto;
-            background: #fff;
+            background: white;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,.1);
+            box-shadow: 0 4px 16px rgba(0,0,0,.08);
         }
 
         h1 {
@@ -37,43 +38,61 @@
         .subtitulo {
             text-align: center;
             color: #666;
+            margin-bottom: 25px;
+        }
+
+        .guia {
+            background: #f8f9fa;
+            border-left: 5px solid #0066cc;
+            padding: 20px;
+            border-radius: 8px;
             margin-bottom: 30px;
         }
 
+        .guia h2 {
+            margin-bottom: 15px;
+            color: #003366;
+        }
+
+        .guia ol {
+            padding-left: 20px;
+            line-height: 1.8;
+        }
+
         label {
-            font-weight: bold;
             display: block;
+            margin-top: 18px;
             margin-bottom: 8px;
-            margin-top: 20px;
+            font-weight: bold;
         }
 
         textarea,
         input {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ccc;
+            border: 1px solid #CCC;
             border-radius: 8px;
             font-size: 14px;
         }
 
         textarea {
-            min-height: 120px;
             resize: vertical;
+            min-height: 120px;
         }
 
         .btn {
-            margin-top: 20px;
-            padding: 12px 20px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             color: white;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
+            padding: 12px 18px;
         }
 
         .btn-gerar {
             background: #0066cc;
+            margin-top: 20px;
         }
 
         .btn-gerar:hover {
@@ -81,20 +100,17 @@
         }
 
         .resultado-container {
-            display: flex;
-            gap: 10px;
-            align-items: stretch;
             margin-top: 10px;
         }
 
-        .resultado-container textarea {
-            flex: 1;
-            min-height: 120px;
-            background: #f8f8f8;
+        .acoes {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
         }
 
         .btn-copiar {
-            min-width: 120px;
             background: #28a745;
         }
 
@@ -102,19 +118,52 @@
             background: #218838;
         }
 
+        .btn-visualizar {
+            background: #ff9800;
+        }
+
+        .btn-visualizar:hover {
+            background: #e68a00;
+        }
+
+        .btn-limpar {
+            background: #6c757d;
+        }
+
+        .btn-limpar:hover {
+            background: #53585c;
+        }
+
         .mensagem {
-            margin-top: 10px;
-            color: #28a745;
+            margin-top: 15px;
+            display: none;
             font-weight: bold;
+        }
+
+        .sucesso {
+            color: #28a745;
+        }
+
+        .erro {
+            color: #dc3545;
+        }
+
+        .parametro-detectado {
+            margin-top: 15px;
+            padding: 12px;
+            background: #eef7ff;
+            border-left: 4px solid #0066cc;
+            border-radius: 6px;
             display: none;
         }
 
         @media(max-width: 768px) {
-            .resultado-container {
+
+            .acoes {
                 flex-direction: column;
             }
 
-            .btn-copiar {
+            .acoes button {
                 width: 100%;
             }
         }
@@ -123,93 +172,247 @@
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <h1>Conversor de Links Showare</h1>
+    <h1>Gerador de Links de Canal de Venda</h1>
 
-        <p class="subtitulo">
-            Substitua automaticamente o canal "internet" pelo código desejado.
-        </p>
+    <p class="subtitulo">
+        Showare • B2B • Canais Exclusivos
+    </p>
 
-        <label for="urlOriginal">Link Original</label>
+    <div class="guia">
 
-        <textarea id="urlOriginal"
-            placeholder="Cole aqui o link da Showare"></textarea>
+        <h2>📋 Como Utilizar</h2>
 
-        <label for="codigo">Código</label>
+        <ol>
+            <li>Pegue o link do espetáculo no sistema Showare.</li>
+            <li>Cole o link no campo <strong>Link Original</strong>.</li>
+            <li>Copie o código do Canal de Venda Exclusivo.</li>
+            <li>Cole o código no campo <strong>Código</strong>.</li>
+            <li>Clique em <strong>Gerar Novo Link</strong>.</li>
+            <li>Clique em <strong>Visualizar</strong> para testar o link.</li>
+            <li>Clique em <strong>Copiar</strong>.</li>
+            <li>Acesse o B2B.</li>
+            <li>Cole o link no campo <strong>"URL do botão principal do espetáculo"</strong>.</li>
+        </ol>
 
-        <input type="text"
-            id="codigo"
-            placeholder="Exemplo: InterPreMM2026">
+    </div>
 
-        <button class="btn btn-gerar" onclick="gerarLink()">
-            Gerar Novo Link
-        </button>
+    <label>Link Original</label>
 
-        <label for="resultado">Novo Link</label>
+    <textarea
+        id="urlOriginal"
+        placeholder="Cole aqui o link da Showare"></textarea>
 
-        <div class="resultado-container">
+    <label>Código</label>
 
-            <textarea id="resultado" readonly></textarea>
+    <input
+        type="text"
+        id="codigo"
+        placeholder="Ex.: InterPreMM2026">
 
-            <button class="btn btn-copiar" onclick="copiarResultado()">
-                Copiar
+    <button
+        class="btn btn-gerar"
+        onclick="gerarLink()">
+        Gerar Novo Link
+    </button>
+
+    <div
+        id="parametroDetectado"
+        class="parametro-detectado">
+    </div>
+
+    <label>Novo Link</label>
+
+    <div class="resultado-container">
+
+        <textarea
+            id="resultado"
+            readonly></textarea>
+
+        <div class="acoes">
+
+            <button
+                class="btn btn-copiar"
+                onclick="copiarResultado()">
+                📋 Copiar
+            </button>
+
+            <button
+                class="btn btn-visualizar"
+                onclick="visualizarLink()">
+                🌐 Visualizar
+            </button>
+
+            <button
+                class="btn btn-limpar"
+                onclick="limparCampos()">
+                🗑️ Limpar
             </button>
 
         </div>
 
-        <div id="mensagem" class="mensagem">
-            ✅ Link copiado com sucesso!
-        </div>
-
     </div>
 
-    <script>
+    <div
+        id="mensagem"
+        class="mensagem">
+    </div>
 
-        function gerarLink() {
+</div>
 
-            const url = document.getElementById("urlOriginal").value.trim();
-            const codigo = document.getElementById("codigo").value.trim();
+<script>
 
-            if (!url) {
-                alert("Informe a URL.");
-                return;
-            }
+function exibirMensagem(texto, tipo) {
 
-            if (!codigo) {
-                alert("Informe o código.");
-                return;
-            }
+    const mensagem =
+        document.getElementById("mensagem");
 
-            const novaUrl = url.replace(/internet/g, codigo);
+    mensagem.innerHTML = texto;
+    mensagem.className = "mensagem " + tipo;
+    mensagem.style.display = "block";
 
-            document.getElementById("resultado").value = novaUrl;
-        }
+    setTimeout(() => {
+        mensagem.style.display = "none";
+    }, 3000);
+}
 
-        function copiarResultado() {
+function gerarLink() {
 
-            const resultado =
-                document.getElementById("resultado").value;
+    const url =
+        document.getElementById("urlOriginal")
+        .value.trim();
 
-            if (!resultado) {
-                alert("Nenhum link gerado.");
-                return;
-            }
+    const codigo =
+        document.getElementById("codigo")
+        .value.trim();
 
-            navigator.clipboard.writeText(resultado);
+    if (!url) {
+        exibirMensagem("Informe o Link Original.", "erro");
+        return;
+    }
 
-            const mensagem =
-                document.getElementById("mensagem");
+    if (!codigo) {
+        exibirMensagem("Informe o Código.", "erro");
+        return;
+    }
 
-            mensagem.style.display = "block";
+    let novaUrl = url;
+    let parametro = "";
 
-            setTimeout(() => {
-                mensagem.style.display = "none";
-            }, 3000);
-        }
+    if (url.includes("websaleschannelkey=internet")) {
 
-    </script>
+        novaUrl = url.replace(
+            "websaleschannelkey=internet",
+            "websaleschannelkey=" + codigo
+        );
+
+        parametro = "websaleschannelkey";
+
+    } else if (url.includes("sw_sc=internet")) {
+
+        novaUrl = url.replace(
+            "sw_sc=internet",
+            "sw_sc=" + codigo
+        );
+
+        parametro = "sw_sc";
+
+    } else if (url.includes("internet")) {
+
+        novaUrl = url.replace(
+            /internet/g,
+            codigo
+        );
+
+        parametro = "internet";
+
+    } else {
+
+        exibirMensagem(
+            "Não foi encontrado nenhum parâmetro contendo 'internet' na URL.",
+            "erro"
+        );
+
+        return;
+    }
+
+    document.getElementById("resultado").value =
+        novaUrl;
+
+    const cardParametro =
+        document.getElementById("parametroDetectado");
+
+    cardParametro.style.display = "block";
+
+    cardParametro.innerHTML =
+        "✅ Parâmetro detectado: <strong>" +
+        parametro +
+        "</strong>";
+
+    exibirMensagem(
+        "Link gerado com sucesso!",
+        "sucesso"
+    );
+}
+
+function copiarResultado() {
+
+    const resultado =
+        document.getElementById("resultado").value;
+
+    if (!resultado) {
+
+        exibirMensagem(
+            "Gere um link antes de copiar.",
+            "erro"
+        );
+
+        return;
+    }
+
+    navigator.clipboard.writeText(resultado);
+
+    exibirMensagem(
+        "✅ Link copiado com sucesso!",
+        "sucesso"
+    );
+}
+
+function visualizarLink() {
+
+    const resultado =
+        document.getElementById("resultado").value;
+
+    if (!resultado) {
+
+        exibirMensagem(
+            "Gere um link antes de visualizar.",
+            "erro"
+        );
+
+        return;
+    }
+
+    window.open(resultado, "_blank");
+}
+
+function limparCampos() {
+
+    document.getElementById("urlOriginal").value = "";
+    document.getElementById("codigo").value = "";
+    document.getElementById("resultado").value = "";
+
+    document.getElementById("parametroDetectado")
+        .style.display = "none";
+
+    exibirMensagem(
+        "✅ Campos limpos com sucesso!",
+        "sucesso"
+    );
+}
+
+</script>
 
 </body>
-
 </html>
