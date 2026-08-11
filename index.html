@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Links Showare</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 10px;
+        }
+
+        .subtitulo {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            margin-top: 20px;
+        }
+
+        textarea,
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .btn-gerar {
+            background: #0066cc;
+        }
+
+        .btn-gerar:hover {
+            background: #0052a3;
+        }
+
+        .resultado-container {
+            display: flex;
+            gap: 10px;
+            align-items: stretch;
+            margin-top: 10px;
+        }
+
+        .resultado-container textarea {
+            flex: 1;
+            min-height: 120px;
+            background: #f8f8f8;
+        }
+
+        .btn-copiar {
+            min-width: 120px;
+            background: #28a745;
+        }
+
+        .btn-copiar:hover {
+            background: #218838;
+        }
+
+        .mensagem {
+            margin-top: 10px;
+            color: #28a745;
+            font-weight: bold;
+            display: none;
+        }
+
+        @media(max-width: 768px) {
+            .resultado-container {
+                flex-direction: column;
+            }
+
+            .btn-copiar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Conversor de Links Showare</h1>
+
+        <p class="subtitulo">
+            Substitua automaticamente o canal "internet" pelo código desejado.
+        </p>
+
+        <label for="urlOriginal">Link Original</label>
+
+        <textarea id="urlOriginal"
+            placeholder="Cole aqui o link da Showare"></textarea>
+
+        <label for="codigo">Código</label>
+
+        <input type="text"
+            id="codigo"
+            placeholder="Exemplo: InterPreMM2026">
+
+        <button class="btn btn-gerar" onclick="gerarLink()">
+            Gerar Novo Link
+        </button>
+
+        <label for="resultado">Novo Link</label>
+
+        <div class="resultado-container">
+
+            <textarea id="resultado" readonly></textarea>
+
+            <button class="btn btn-copiar" onclick="copiarResultado()">
+                Copiar
+            </button>
+
+        </div>
+
+        <div id="mensagem" class="mensagem">
+            ✅ Link copiado com sucesso!
+        </div>
+
+    </div>
+
+    <script>
+
+        function gerarLink() {
+
+            const url = document.getElementById("urlOriginal").value.trim();
+            const codigo = document.getElementById("codigo").value.trim();
+
+            if (!url) {
+                alert("Informe a URL.");
+                return;
+            }
+
+            if (!codigo) {
+                alert("Informe o código.");
+                return;
+            }
+
+            const novaUrl = url.replace(/internet/g, codigo);
+
+            document.getElementById("resultado").value = novaUrl;
+        }
+
+        function copiarResultado() {
+
+            const resultado =
+                document.getElementById("resultado").value;
+
+            if (!resultado) {
+                alert("Nenhum link gerado.");
+                return;
+            }
+
+            navigator.clipboard.writeText(resultado);
+
+            const mensagem =
+                document.getElementById("mensagem");
+
+            mensagem.style.display = "block";
+
+            setTimeout(() => {
+                mensagem.style.display = "none";
+            }, 3000);
+        }
+
+    </script>
+
+</body>
+
+</html>
